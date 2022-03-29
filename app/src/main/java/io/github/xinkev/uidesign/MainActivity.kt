@@ -11,6 +11,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import io.github.xinkev.uidesign.ui.Screen
 import io.github.xinkev.uidesign.ui.theme.UIDesignTheme
 
 class MainActivity : ComponentActivity() {
@@ -18,27 +19,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             UIDesignTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-                    Greeting("Android")
-                    Button(onClick = { /*TODO*/ }) {
-
-                    }
-                }
+                Screen()
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    UIDesignTheme {
-        Greeting("Android")
     }
 }
