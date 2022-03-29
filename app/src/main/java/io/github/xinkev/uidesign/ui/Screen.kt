@@ -1,25 +1,36 @@
 package io.github.xinkev.uidesign.ui
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
 import com.skydoves.landscapist.glide.GlideImage
 import io.github.xinkev.uidesign.ui.components.*
 import io.github.xinkev.uidesign.ui.theme.UIDesignTheme
 
+@ExperimentalPagerApi
 @Composable
 fun Screen() {
-    Column(Modifier.fillMaxSize()) {
+    var currentTab by rememberSaveable { mutableStateOf(TabItem.ByRoom) }
+    Column(
+        Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+    ) {
         Toolbar()
         Headline()
         Address()
         Spacer(modifier = Modifier.height(16.dp))
-        GlideImage(
-            imageModel = "https://images.unsplash.com/photo-1648576975340-d40b5aef1bb4?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&dl=julia-koi-Dl9TURIRXb4-unsplash.jpg&w=640",
-            modifier = Modifier.height(180.dp),
-        )
+        Banners()
         Spacer(modifier = Modifier.height(32.dp))
         Categories(
             modifier = Modifier
@@ -29,13 +40,19 @@ fun Screen() {
         Spacer(modifier = Modifier.height(28.dp))
         Tabs(
             modifier = Modifier.padding(horizontal = 16.dp),
-            selected = TabItem.ByRoom,
-            onSelect = { /*TODO*/ }
+            selected = currentTab,
+            onSelect = { currentTab = it }
         )
-        ByRoomItem()
+        Spacer(modifier = Modifier.height(16.dp))
+        if (currentTab == TabItem.ByRoom) {
+            ByRoom()
+        } else {
+
+        }
     }
 }
 
+@ExperimentalPagerApi
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewScreen() {
